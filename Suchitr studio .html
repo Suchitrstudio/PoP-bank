@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Earning App</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include AdMob script if necessary -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@googleads/googleads-api@1.0.0/dist/googleads.min.js"></script> -->
+<style type="text/css" id="dcoder_stylesheet">body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#balance-display {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}</style></head>
+<body>
+    <div class="container">
+        <h1>Coin Earning App</h1>
+        <div id="balance-display">Coins: 0</div>
+        <progress id="progress-bar" value="0" max="100"></progress>
+        <button id="watch-ad">Watch Ad</button>
+        <button id="redeem" disabled>Redeem ₹1</button>
+    </div>
+
+    <script src="script.js"></script>
+
+<script type="text/javascript" id="dcoder_script">let currentCoins = parseFloat(localStorage.getItem('coinBalance')) || 0;
+
+// Update UI
+function updateUI() {
+    document.getElementById('balance-display').innerText = `Coins: ${currentCoins.toFixed(1)}`;
+    document.getElementById('progress-bar').value = currentCoins % 100;
+    document.getElementById('redeem').disabled = currentCoins < 100;
+}
+
+// Simulate watching an ad
+document.getElementById('watch-ad').addEventListener('click', function() {
+    // Simulate ad viewing
+    alert('Ad is playing...'); // Simulating ad playback
+    setTimeout(() => {
+        currentCoins += 0.5; // Earn coins
+        localStorage.setItem('coinBalance', currentCoins); // Save to local storage
+        updateUI();
+        alert("You've earned 0.5 coins!");
+    }, 2000); // Simulate ad duration
+});
+
+// Redeem coins
+document.getElementById('redeem').addEventListener('click', function() {
+    if (currentCoins >= 100) {
+        currentCoins -= 100;
+        localStorage.setItem('coinBalance', currentCoins);
+        updateUI();
+        alert('₹1 redeemed successfully!');
+    } else {
+        alert('You need 100 coins to redeem ₹1.');
+    }
+});
+
+// Initial UI update
+updateUI();</script></body></html>
